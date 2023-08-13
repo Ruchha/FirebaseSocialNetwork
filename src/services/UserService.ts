@@ -1,7 +1,7 @@
 import { collection, query, where } from "firebase/firestore";
-import { db } from "../main";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { IUser } from "../models/IUser";
+import { db } from "../firebase/firebase";
 
 export function useGetUser(id:string){
     const q = query(collection(db, "users"), where("id", "==", id))

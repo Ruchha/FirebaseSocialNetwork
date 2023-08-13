@@ -1,9 +1,9 @@
 import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/dist/query/react'
 import { addDoc, collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore'
-import { db } from '../main'
 import { useCollection, useCollectionData, useCollectionOnce, useDocumentData, useDocumentDataOnce } from "react-firebase-hooks/firestore"
 import { IPost } from '../models/IPost'
 import { IFirebaseError } from '../models/IFirebaseError'
+import { db } from '../firebase/firebase'
 
 
 
