@@ -1,6 +1,5 @@
 import { FieldValue } from "firebase/firestore";
 
-
 export interface IPost {
     postId: number;
     id: string;

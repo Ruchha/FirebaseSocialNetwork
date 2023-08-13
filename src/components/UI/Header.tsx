@@ -13,16 +13,16 @@ import {
 } from "@mui/material"
 import { useState } from "react"
 import { Link } from "react-router-dom"
-import { useAppDispatch, useAppSelector } from "../hooks/redux"
-import { removeUser } from "../store/reducers/userSlice"
-import { getProfileName } from "../utils/getProfileName"
-import { authAPI } from "../services/AuthService"
+import { useAppDispatch, useAppSelector } from "../../hooks/redux"
+import { removeUser } from "../../store/reducers/userSlice"
+import { getProfileName } from "../../utils/getProfileName"
+import { authAPI } from "../../services/AuthService"
 
 export default function Header() {
   const [logout] = authAPI.useLogoutMutation()
   const dispatch = useAppDispatch()
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
-  const user = useAppSelector((state) => state.userReducer)
+  const user = useAppSelector(state => state.userReducer)
   function handleLogout() {
     handleCloseUserMenu()
     dispatch(removeUser())
@@ -53,7 +53,7 @@ export default function Header() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar src={user.avatarUrl!} />
                 </IconButton>
               </Tooltip>
               <Menu

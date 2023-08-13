@@ -11,11 +11,11 @@ const Profile :FC = () => {
     const user = useGetUser(profileName!)
     const posts = useGetUserPostsQuery(profileName!);
 
-
   return (
     <Container>
       <Card sx={{mt:2, mb:2}}>
       <CardContent>
+      <Avatar sx={{ marginRight: "8px" }} src={user?.avatarUrl} />
         <Typography variant="h5" component="div">
           Информация о профиле
         </Typography>
@@ -46,9 +46,6 @@ const Profile :FC = () => {
                 justifyContent="flex-start"
                 spacing={1}
               >
-                <Grid item>
-                  <Avatar sx={{ marginRight: "8px" }} src={post.avatar} />
-                </Grid>
                 
                 <Grid item>
                   <Typography variant="subtitle2">

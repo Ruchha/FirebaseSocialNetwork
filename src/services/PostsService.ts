@@ -1,5 +1,5 @@
 import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/dist/query/react'
-import { addDoc, collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore'
+import { addDoc, collection, doc, getDocs, orderBy, query, updateDoc, where } from 'firebase/firestore'
 import { useCollection, useCollectionData, useCollectionOnce, useDocumentData, useDocumentDataOnce } from "react-firebase-hooks/firestore"
 import { IPost } from '../models/IPost'
 import { IFirebaseError } from '../models/IFirebaseError'
@@ -13,14 +13,15 @@ export const postsAPI = createApi({
     tagTypes:['Post'],
     endpoints: build => ({
         addPost: build.mutation({
-            async queryFn({id, profileEmail, postMessage, postId, postedOn, likes}:IPost){
+            async queryFn({id, profileEmail, postMessage, postId, postedOn, likes, posterAvatar=""}:IPost){
                 await addDoc(collection(db, "posts"), {
                     postId,
                     id,
                     profileEmail,
                     postMessage,
                     postedOn,
-                    likes
+                    likes,
+                    posterAvatar
                   })
                   return {data: {}}
             }, invalidatesTags:['Post']
@@ -43,7 +44,7 @@ export const postsAPI = createApi({
 
 
 export function useGetPostsQuery() {
-    const q = collection(db, "posts");
+    const q = query(collection(db, "posts"), orderBy("postedOn", "desc"));
     const [data] = useCollectionData(q);
     const posts = data as IPost[] | undefined
     return posts;

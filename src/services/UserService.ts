@@ -6,6 +6,6 @@ import { db } from "../firebase/firebase";
 export function useGetUser(id:string){
     const q = query(collection(db, "users"), where("id", "==", id))
     const [value] = useCollection(q);
-    const user = value?.docs[0].data() as IUser | undefined
+    const user = value?.docs[0]?.data() as IUser | undefined
     return user
 }

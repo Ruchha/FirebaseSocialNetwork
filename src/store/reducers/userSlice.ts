@@ -5,7 +5,8 @@ const initialState:IUser = {
     email: "",
     id: "",
     firstName: "",
-    lastName: ""
+    lastName: "",
+    avatarUrl:""
 }
 
 const userSlice = createSlice({
@@ -17,12 +18,14 @@ const userSlice = createSlice({
             state.id = action.payload.id;
             state.firstName = action.payload.firstName;
             state.lastName = action.payload.lastName;
+            state.avatarUrl = action.payload.avatarUrl
         },
         removeUser(state){
             state.email = "";
             state.id = "";
             state.firstName = "";
             state.lastName = "";
+            state.avatarUrl = "";
         }
     }
 })

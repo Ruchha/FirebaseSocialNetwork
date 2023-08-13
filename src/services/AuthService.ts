@@ -29,7 +29,8 @@ export const authAPI = createApi({
                     id: response.user.uid,
                     email,
                     firstName,
-                    lastName
+                    lastName,
+                    avatarUrl: null,
                   })
                 return {data: response.user}
             }
