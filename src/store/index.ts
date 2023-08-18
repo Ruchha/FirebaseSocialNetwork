@@ -2,17 +2,23 @@ import { configureStore, ThunkAction, Action, combineReducers, getDefaultMiddlew
 import { authAPI } from "../services/AuthService"
 import userReducer from './reducers/userSlice'
 import { postsAPI } from "../services/PostsService"
+import { commentsAPI } from "../services/CommentsService"
 
 const rootReducer = combineReducers({
   userReducer,
   [authAPI.reducerPath]: authAPI.reducer,
-  [postsAPI.reducerPath]: postsAPI.reducer
+  [postsAPI.reducerPath]: postsAPI.reducer,
+  [commentsAPI.reducerPath]: commentsAPI.reducer
 })
 
-
+const apiMiddlewares = [
+  commentsAPI.middleware,
+  authAPI.middleware,
+  postsAPI.middleware,
+]
 export const store = configureStore({
   reducer: rootReducer,
-  middleware: getDefaultMiddleware => getDefaultMiddleware({serializableCheck:false}).concat([authAPI.middleware, postsAPI.middleware]),
+  middleware: getDefaultMiddleware => getDefaultMiddleware({serializableCheck:false}).concat([...apiMiddlewares]),
   devTools:true,
 })
 

@@ -1,7 +1,6 @@
 import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/dist/query/react'
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { addDoc, collection } from 'firebase/firestore';
-
 import { IFirebaseError } from '../models/IFirebaseError';
 import { db } from '../firebase/firebase';
 
@@ -30,7 +29,7 @@ export const authAPI = createApi({
                     email,
                     firstName,
                     lastName,
-                    avatarUrl: null,
+                    avatarUrl: "",
                   })
                 return {data: response.user}
             }

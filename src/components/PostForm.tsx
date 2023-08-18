@@ -5,7 +5,7 @@ import { serverTimestamp } from 'firebase/firestore';
 import { postsAPI } from '../services/PostsService';
 
 const PostForm: FC = () => {
-    const [post, setPost] = useState("")
+    const [post, setPost] = useState<string>("")
     const [addPost] = postsAPI.useAddPostMutation()
     const user = useAppSelector(state => state.userReducer)
     async function handlePost() {

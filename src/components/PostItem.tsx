@@ -1,5 +1,5 @@
 import { Avatar, Card, CardContent, Divider, Grid, IconButton, Typography } from "@mui/material"
-import { FC } from "react"
+import { FC, useState } from "react"
 import { Link } from "react-router-dom"
 import { getProfileName } from "../utils/getProfileName"
 import { getDate } from "../utils/getDate"
@@ -9,14 +9,18 @@ import { IPost } from "../models/IPost"
 import { useDownloadURL } from "react-firebase-hooks/storage"
 import { ref } from "firebase/storage"
 import { storage } from "../firebase/firebase"
+import CommentsList from "./CommentsList"
+import { useGetCommentsQuery } from "../services/CommentsService"
 
 interface IPostProps {
     post: IPost
 }
 
-const Post: FC<IPostProps> = ({post}) => {
+const PostItem: FC<IPostProps> = ({post}) => {
+const [checked, setChecked] = useState(false)
 const [addLike] = postsAPI.useAddLikeMutation()
 const [avatarUrl] = useDownloadURL(ref(storage, `/userAvatars/${post.id}`))
+const comments = useGetCommentsQuery(post.postId)
   return (
     <Card sx={{ marginBottom: "16px" }}>
       <CardContent>
@@ -56,16 +60,18 @@ const [avatarUrl] = useDownloadURL(ref(storage, `/userAvatars/${post.id}`))
             <IconButton onClick={() => addLike({ id: post.postId })}>
               {post.likes} <Favorite />
             </IconButton>
-            <IconButton>
+            <IconButton onClick={() => setChecked(prev => !prev)}>
               <Comment />
             </IconButton>
           </div>
         </div>
-        <Divider />
-        <Typography variant="body1">{post.postMessage}</Typography>
+        <Divider/>
+        <Typography variant="body1" sx={{mt:2, mb:2}}>{post.postMessage}</Typography>
       </CardContent>
+      <CommentsList postId={post.postId} comments={comments!} checked={checked}/>
     </Card>
+    
   )
 }
 
-export default Post
+export default PostItem

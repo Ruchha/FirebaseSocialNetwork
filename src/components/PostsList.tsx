@@ -1,6 +1,6 @@
 import { FC } from "react"
 import { IPost } from "../models/IPost"
-import Post from "./Post"
+import PostItem from "./PostItem"
 
 interface IPostsListProps {
   posts: IPost[]
@@ -8,11 +8,11 @@ interface IPostsListProps {
 
 const PostsList: FC<IPostsListProps> = ({ posts }) => {
   return (
-    <div>
+    <>
       {posts?.map(post => 
-        <Post key={post.postId} post={post} />
+        <PostItem key={post.postId} post={post} />
       )}
-    </div>
+    </>
   )
 }
 
